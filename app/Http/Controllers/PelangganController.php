@@ -54,17 +54,17 @@ class PelangganController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {
-        $data['dataPelanggan'] = Pelanggan::findOrFail($id);
-        return view('admin.pelanggan.edit', $data);
-    }
+{
+    $data['dataPelanggan'] = Pelanggan::findOrFail($id);
+    return view('admin.pelanggan.edit', $data);
+}
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        
         $pelanggan_id = $id;
         $pelanggan    = Pelanggan::findOrFail($pelanggan_id);
 
@@ -76,7 +76,8 @@ class PelangganController extends Controller
         $pelanggan->phone      = $request->phone;
 
         $pelanggan->save();
-        return redirect()->route('pelanggan.index')->with('success', 'Perubahan Data Berhasil!');
+        return redirect()->route('pelanggan.index')
+        ->with('success', 'Perubahan Data Berhasil!');
     }
 
     /**
@@ -84,6 +85,9 @@ class PelangganController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $pelanggan = Pelanggan::findOrFail($id);
+
+        $pelanggan->delete();
+        return redirect()->route('pelanggan.index')->with('success','Data berhasil dihapus');
     }
 }
